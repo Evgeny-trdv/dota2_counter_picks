@@ -1,10 +1,23 @@
 package com.dota2picker.dotaHeroes_counter_picks.model;
 
 import com.dota2picker.dotaHeroes_counter_picks.model.attribute.Attribute;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Entity
+@Setter
+@Getter
 public class Hero {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String name;
     private Attribute attribute;
@@ -15,22 +28,6 @@ public class Hero {
     }
 
     public Hero() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
     }
 
     @Override
