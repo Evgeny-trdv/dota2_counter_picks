@@ -17,7 +17,7 @@ public class Hero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
     private Attribute attribute;
