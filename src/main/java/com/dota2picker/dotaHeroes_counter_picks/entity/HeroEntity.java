@@ -1,21 +1,15 @@
-package com.dota2picker.dotaHeroes_counter_picks.model;
+package com.dota2picker.dotaHeroes_counter_picks.entity;
 
-import com.dota2picker.dotaHeroes_counter_picks.model.attribute.Attribute;
+import com.dota2picker.dotaHeroes_counter_picks.entity.attribute.Attribute;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
 
 @Entity
 @EqualsAndHashCode
 @ToString
 @Table(name = "heroes")
-public class Hero {
+public class HeroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +20,12 @@ public class Hero {
     @Enumerated(EnumType.STRING)
     private Attribute attribute;
 
-    public Hero(String name, Attribute attribute) {
+    public HeroEntity(String name, Attribute attribute) {
         this.name = name;
         this.attribute = attribute;
     }
 
-    public Hero() {
+    public HeroEntity() {
     }
 
     public Long getId() {
