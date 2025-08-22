@@ -9,14 +9,14 @@ public class HeroMapper {
 
     public Hero toHeroDto(HeroEntity heroEntity) {
         Hero hero = new Hero();
-        hero.setHeroName(heroEntity.getName());
+        hero.setHeroName(heroEntity.getHeroName());
         hero.setAttribute(heroEntity.getAttribute());
         return hero;
     }
 
     public HeroEntity toHeroEntity(Hero hero) {
         HeroEntity heroEntity = new HeroEntity();
-        heroEntity.setName(hero.getHeroName());
+        heroEntity.setHeroName(hero.getHeroName());
         heroEntity.setAttribute(hero.getAttribute());
         return heroEntity;
     }

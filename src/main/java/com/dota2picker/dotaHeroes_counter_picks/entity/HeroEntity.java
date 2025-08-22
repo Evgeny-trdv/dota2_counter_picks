@@ -15,13 +15,13 @@ public class HeroEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String heroName;
 
     @Enumerated(EnumType.STRING)
     private Attribute attribute;
 
     public HeroEntity(String name, Attribute attribute) {
-        this.name = name;
+        this.heroName = name;
         this.attribute = attribute;
     }
 
@@ -32,12 +32,12 @@ public class HeroEntity {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getHeroName() {
+        return heroName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHeroName(String name) {
+        this.heroName = name;
     }
 
     public Attribute getAttribute() {

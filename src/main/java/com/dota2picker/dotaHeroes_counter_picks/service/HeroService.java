@@ -40,35 +40,51 @@ public class HeroService {
         HeroEntity heroEntity = heroMapper.toHeroEntity(hero);
 
         heroRepository.save(heroEntity);
+        logger.info("hero saved");
         return heroMapper.toHeroDto(heroEntity);
     }
 
-    public HeroEntity getHero(String heroName) {
+    public Hero getHero(String heroName) {
         validateInputData(heroName);
 
         makeNameIsCapitalized(heroName);
 
-        Optional<HeroEntity> hero = heroRepository
+        Optional<HeroEntity> heroEntity = heroRepository
                 .findHeroByName(heroName);
-        if (hero.isPresent()) return hero.get();
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found");
-        //is being developed
+        if (heroEntity.isPresent()) {
+            return heroMapper.toHeroDto(heroEntity.get());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found");
+        }
     }
 
-    public HeroEntity getHero(Long heroId) {
-        Optional<HeroEntity> hero = heroRepository
-                .findHeroById(heroId);
-        if (hero.isPresent()) return hero.get();
-        else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found");
-        //is being developed
+    public Hero updateHero(String heroName, Hero hero) {
+        validateInputData(heroName);
+
+        makeNameIsCapitalized(heroName);
+
+        Optional<HeroEntity> heroEntity = heroRepository
+                .findHeroByName(heroName);
+        if (heroEntity.isPresent()) {
+            heroRepository.save(heroMapper.toHeroEntity(hero));
+            logger.info("hero updated");
+            return heroMapper.toHeroDto(heroEntity.get());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found");
+        }
     }
 
-    public HeroEntity updateHero(HeroEntity hero) {
-        return heroRepository.save(hero); //в работе
-    }
+    public void deleteHero(String heroName) {
+        validateInputData(heroName);
 
-    public void deleteHero(HeroEntity hero) {
-        heroRepository.delete(hero); //is being developed
+        makeNameIsCapitalized(heroName);
+
+        Optional<HeroEntity> heroEntity = heroRepository
+                .findHeroByName(heroName);
+        if (heroEntity.isPresent()) {
+            heroRepository.delete(heroEntity.get());
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Hero is deleted");
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found");
     }
 
     private void validateInputData(String heroName) {

@@ -21,12 +21,17 @@ public class HeroController {
     }
 
     @GetMapping("/{heroName}")
-    public HeroEntity getHero(@PathVariable String heroName) {
+    public Hero getHero(@PathVariable String heroName) {
         return heroService.getHero(heroName);
     }
 
-    @GetMapping("/{heroId}")
-    public HeroEntity getHero(@PathVariable Long heroId) {
-        return heroService.getHero(heroId);
+    @PutMapping("/{heroName}")
+    public Hero updateHero(@PathVariable String heroName, @RequestBody Hero hero) {
+        return heroService.updateHero(heroName, hero);
+    }
+
+    @DeleteMapping("/{heroName}")
+    public void deleteHero(@PathVariable String heroName) {
+        heroService.deleteHero(heroName);
     }
 }
