@@ -1,12 +1,16 @@
 package com.dota2picker.dotaHeroes_counter_picks.dto;
 
 import com.dota2picker.dotaHeroes_counter_picks.entity.attribute.Attribute;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.util.Objects;
 
 public class Hero {
 
     private String heroName;
+
+    @Enumerated(EnumType.STRING)
     private Attribute attribute;
 
     public String getHeroName() {

@@ -1,7 +1,6 @@
 package com.dota2picker.dotaHeroes_counter_picks.controller;
 
 import com.dota2picker.dotaHeroes_counter_picks.dto.Hero;
-import com.dota2picker.dotaHeroes_counter_picks.entity.HeroEntity;
 import com.dota2picker.dotaHeroes_counter_picks.service.HeroService;
 import org.springframework.web.bind.annotation.*;
 

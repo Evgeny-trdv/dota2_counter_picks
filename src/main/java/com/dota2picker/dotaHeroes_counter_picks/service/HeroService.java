@@ -32,7 +32,7 @@ public class HeroService {
 
         makeNameIsCapitalized(hero);
 
-        if (heroRepository.existsHeroByName(hero.getHeroName())) {
+        if (heroRepository.existsHeroByHeroName(hero.getHeroName())) {
             logger.debug("hero exists");
             throw new ResponseStatusException(HttpStatus.FOUND, "Hero exists"); //требует доработки
         }
@@ -47,10 +47,10 @@ public class HeroService {
     public Hero getHero(String heroName) {
         validateInputData(heroName);
 
-        makeNameIsCapitalized(heroName);
+        String name = StringUtils.capitalize(heroName.toLowerCase());
 
         Optional<HeroEntity> heroEntity = heroRepository
-                .findHeroByName(heroName);
+                .findHeroByHeroName(name);
         if (heroEntity.isPresent()) {
             return heroMapper.toHeroDto(heroEntity.get());
         } else {
@@ -61,26 +61,24 @@ public class HeroService {
     public Hero updateHero(String heroName, Hero hero) {
         validateInputData(heroName);
 
-        makeNameIsCapitalized(heroName);
+        String name = StringUtils.capitalize(heroName.toLowerCase());
 
-        Optional<HeroEntity> heroEntity = heroRepository
-                .findHeroByName(heroName);
-        if (heroEntity.isPresent()) {
-            heroRepository.save(heroMapper.toHeroEntity(hero));
-            logger.info("hero updated");
-            return heroMapper.toHeroDto(heroEntity.get());
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found");
-        }
+        HeroEntity heroEntity = heroRepository
+                .findHeroByHeroName(name)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hero not found"));
+        makeNameIsCapitalized(hero);
+        heroEntity.setHeroName(StringUtils.capitalize(hero.getHeroName()));
+        heroEntity.setAttribute(hero.getAttribute());
+        heroRepository.save(heroEntity);
+        logger.info("hero updated");
+        return heroMapper.toHeroDto(heroEntity);
     }
 
     public void deleteHero(String heroName) {
         validateInputData(heroName);
 
-        makeNameIsCapitalized(heroName);
-
         Optional<HeroEntity> heroEntity = heroRepository
-                .findHeroByName(heroName);
+                .findHeroByHeroName(StringUtils.capitalize(heroName.toLowerCase()));
         if (heroEntity.isPresent()) {
             heroRepository.delete(heroEntity.get());
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Hero is deleted");

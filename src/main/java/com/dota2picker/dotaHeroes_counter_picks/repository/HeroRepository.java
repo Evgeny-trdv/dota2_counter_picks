@@ -9,9 +9,9 @@ import java.util.Optional;
 @Repository
 public interface HeroRepository extends JpaRepository<HeroEntity, Long> {
 
-    public boolean existsHeroByName(String name);
+    public boolean existsHeroByHeroName(String heroName);
 
-    public Optional<HeroEntity> findHeroByName(String name);
+    public Optional<HeroEntity> findHeroByHeroName(String heroName);
 
     public Optional<HeroEntity> findHeroById(Long id);
 }
