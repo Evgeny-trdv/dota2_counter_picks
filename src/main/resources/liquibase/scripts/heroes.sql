@@ -8,4 +8,7 @@ CREATE TABLE heroes (
 );
 
 --changeset etaradaev:2
-ALTER TABLE heroes ADD UNIQUE (hero_name)
+ALTER TABLE heroes ADD UNIQUE (hero_name);
+
+--changeset etaradaev:3
+ALTER TABLE heroes ADD COLUMN counter_picks TEXT[];
